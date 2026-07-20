@@ -6,3 +6,9 @@ def home(req):
         'products':products
     }
     return render(req,"home.html",context)
+
+
+
+
+def pageNotFound(req):
+    return render(req,'404_notfound.html')

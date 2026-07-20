@@ -18,6 +18,10 @@
 
 
     <!-- Single Products Start -->
+
+
+    <form action="{% url 'add_cart' single_product.id %}" method="POST">
+        {% csrf_token %}
     <div class="container-fluid shop py-5">
         <div class="container py-5">
             <div class="row g-4">
@@ -48,28 +52,15 @@
                             <!-- Size Variation -->
 
                             <div class="mb-4">
-                            <h6 class="fw-bold mb-3">Size:</h6>
+                            <h6 class="fw-bold mb-3">Color:</h6>
 
                             <div class="d-flex gap-2">
-                            <input type="radio" class="btn-check" name="size" id="size-s" value="S" autocomplete="off">
-                            <label class="btn btn-outline-primary rounded-pill px-4" for="size-s">
-                            S
-                            </label>
-
-                            <input type="radio" class="btn-check" name="size" id="size-m" value="M" autocomplete="off">
-                            <label class="btn btn-outline-primary rounded-pill px-4" for="size-m">
-                            M
-                            </label>
-
-                            <input type="radio" class="btn-check" name="size" id="size-l" value="L" autocomplete="off">
-                            <label class="btn btn-outline-primary rounded-pill px-4" for="size-l">
-                            L
-                            </label>
-
-                            <input type="radio" class="btn-check" name="size" id="size-xl" value="XL" autocomplete="off">
-                            <label class="btn btn-outline-primary rounded-pill px-4" for="size-xl">
-                            XL
-                            </label>
+                              <select name="color" class="form-control" required>
+                                <option disabled selected>Choose Color</option>
+                                {% for i in single_product.variation_set.colors %}
+                                <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst}}</option>
+                                {% endfor %}
+                              </select>
                             </div>
 
 
@@ -78,69 +69,16 @@
                             <!-- Color Variation -->
 
                             <div class="mb-4">
-                            <h6 class="fw-bold mb-3">Color:</h6>
+                            <h6 class="fw-bold mb-3">Size:</h6>
 
-                            ```
-                            <div class="d-flex gap-3">
-
-                            <input type="radio" class="btn-check" name="color" id="color-black" value="Black"
-                            autocomplete="off">
-
-                            <label for="color-black"
-                            class="rounded-circle border border-3 p-1"
-                            style="width: 38px; height: 38px; cursor: pointer;">
-
-                            <span class="d-block rounded-circle"
-                                style="width: 100%; height: 100%; background-color: black;">
-                            </span>
-
-                            </label>
-
-
-                            <input type="radio" class="btn-check" name="color" id="color-white" value="White"
-                            autocomplete="off">
-
-                            <label for="color-white"
-                            class="rounded-circle border border-3 p-1"
-                            style="width: 38px; height: 38px; cursor: pointer;">
-
-                            <span class="d-block rounded-circle border"
-                                style="width: 100%; height: 100%; background-color: white;">
-                            </span>
-
-                            </label>
-
-
-                            <input type="radio" class="btn-check" name="color" id="color-red" value="Red"
-                            autocomplete="off">
-
-                            <label for="color-red"
-                            class="rounded-circle border border-3 p-1"
-                            style="width: 38px; height: 38px; cursor: pointer;">
-
-                            <span class="d-block rounded-circle"
-                                style="width: 100%; height: 100%; background-color: red;">
-                            </span>
-
-                            </label>
-
-
-                            <input type="radio" class="btn-check" name="color" id="color-blue" value="Blue"
-                            autocomplete="off">
-
-                            <label for="color-blue"
-                            class="rounded-circle border border-3 p-1"
-                            style="width: 38px; height: 38px; cursor: pointer;">
-
-                            <span class="d-block rounded-circle"
-                                style="width: 100%; height: 100%; background-color: blue;">
-                            </span>
-
-                            </label>
-
+                            <div class="d-flex gap-2">
+                              <select name="size" class="form-control">
+                                 <option disabled selected>Choice Size</option>
+                                {% for i in single_product.variation_set.sizes %}
+                                <option value="{{i.variation_value | lower }}">{{i.variation_value | capfirst}}</option>
+                                {% endfor %}
+                              </select>
                             </div>
-                            ```
-
                             </div>
 
 
@@ -174,13 +112,18 @@
                                      Out Of stock
                                 </a>
                         {% else %}  
-                               <a href="#"
+                            
+                            <button
                                 class="btn btn-primary border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
                                    <i class="fa fa-shopping-bag me-2 text-white"></i>
-                                     Add to Cart
-                                </a>
+                                    Add to Cart
+                            </button>         
                         {% endif %}                
                         </div>
+
+                        <!-- description and review code -->
+
+                        
                         <div class="col-lg-12">
                             <nav>
                                 <div class="nav nav-tabs mb-3">
@@ -295,6 +238,8 @@
             </div>
         </div>
     </div>
+    </form>
+
     <!-- Single Products End -->
 
     <!-- Related Product Start -->
