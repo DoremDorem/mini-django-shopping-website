@@ -133,4 +133,8 @@ def serach(req):
     return render(req,'store/store.html',context)
 
 
+def contact(req):
+    return render(req,'store/contact.html')    
+
+
 
